@@ -1,0 +1,5 @@
+---
+dependencies:
+  - role: interface
+  - role: ipv6
+  - role: ipv6-routing

@@ -1,0 +1,17 @@
+---
+- name: "test GNS3 api"
+  hosts: localhost
+  tasks:
+    - name: "get gns3 cpu load"
+      uri:
+        url: http://172.16.253.1:3080/v2/computes
+        method: GET
+        return_content: yes
+      register: compute
+    - name: "get cpu load"
+      set_fact:
+        cpu_load: "{{ item.cpu_usage_percent }}"
+      loop: "{{ compute.json }}"
+    - name: "print cpu load"
+      debug:
+        msg: "{{ cpu_load }} "

@@ -1,0 +1,38 @@
+---
+- name: "get gns3 projects"
+  uri:
+    url: http://172.16.253.1:3080/v2/projects
+    method: GET
+  register: projects
+- name: "set the project id"
+  set_fact:
+    project_id: "{{ item.project_id }}"
+  when: item.name == project_name
+  loop: "{{ projects.json }}"
+- name: "open the project"
+  uri:
+    url: http://172.16.253.1:3080/v2/projects/{{ project_id }}/open
+    status_code: 201
+    method: POST
+- name: "get project nodes"
+  uri:
+    url: http://172.16.253.1:3080/v2/projects/{{ project_id }}/nodes
+    method: GET
+  register: nodes
+- name: "set the node id"
+  set_fact:
+    port: "{{ item.console }}"
+  when: item.name == node
+  loop: "{{ nodes.json }}"
+- debug: var=port
+- name: telnet,login and execute command
+  ignore_errors: true
+  expect:
+    command: telnet 172.16.253.1 5044
+    responses:
+      (?i)\.: "configure terminal/rn"
+      (?i)#: "hostname test"
+    echo: yes
+  register: telnet_output
+- name: Debug output
+  debug: var=telnet_output.stdout_lines

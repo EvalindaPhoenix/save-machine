@@ -1,0 +1,14 @@
+---
+- name: "Enable node control"
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+      project_name: 'ansible-ccna-model'
+      limit: 50
+  tasks:
+    - include_tasks: enable_node_control.yml
+      loop:
+        - R1
+      loop_control:
+        loop_var: node

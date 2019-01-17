@@ -1,0 +1,15 @@
+---
+- name: enable ipv4 dhcp server
+  ios_config:
+    parents: ip dhcp pool {{ item.id }}
+    lines:
+      - network {{ item.network }} {{ item.netmask }}
+      - default-router {{ item.router }}
+      - dns-server {{ item.dns }}
+  with_items: "{{ dhcp_pool }}"
+- name: exclude range from pool
+  ios_config:
+    lines:
+      - ip dhcp excluded-address {{ item.start }} {{ item.end }}
+  with_items: "{{ dhcp_excluded }}"
+  when: dhcp_excluded is defined

@@ -1,0 +1,66 @@
+---
+- name: "Duplicate GNS3 topology"
+  hosts: localhost
+  gather_facts: True
+  vars:
+      project_name: 'ansible-ccna-model'
+      new_project_name:
+        name: "ansible-ccna-model-{{ ansible_date_time.date }}"
+      gns3_server: '172.16.253.1:3080'
+  tasks:
+    - name: "get gns3 projects"
+      uri:
+        url: http://{{ gns3_server }}/v2/projects
+        method: GET
+      register: projects
+    - name: "set the project id"
+      set_fact:
+        project_id: "{{ item.project_id }}"
+      when: item.name == project_name
+      loop: "{{ projects.json }}"
+    - name: "open the project"
+      uri:
+        url: http://{{ gns3_server }}/v2/projects/{{ project_id }}/open
+        status_code: 201, 404
+        method: POST
+      register: result
+    - debug:
+        msg: "The project has been opened (status code {{ result.status }})"
+      when: result.status == 201
+    - fail:
+        msg: "The project doesn’t exist (status code {{ result.status }})"
+      when: result.status == 404
+    - name: "check if the new project name exists"
+      fail:
+        msg: "The new project name exists !"
+      when: item.name == new_project_name.name
+      loop: "{{ projects.json }}"
+    - name: "duplicate the new project"
+      uri:
+        url: http://{{ gns3_server }}/v2/projects/{{ project_id }}/duplicate
+        body: "{{ new_project_name | to_json }}"
+        status_code: 201,403,404
+        method: POST
+        timeout: 300
+      register: result
+    - debug:
+        msg: "Project duplicate (status code {{ result.status }})"
+      when: result.status == 201
+    - fail:
+        msg: "The server is not the local server (status code {{ result.status }})"
+      when: result.status == 403
+    - fail:
+        msg: "Instance doesn’t exist (status code {{ result.status }})"
+      when: result.status == 404
+    - name: "close the project"
+      uri:
+        url: http://{{ gns3_server }}/v2/projects/{{ project_id }}/close
+        status_code: 204, 404
+        method: POST
+      register: result
+    - debug:
+        msg: "The project has been closed (status code {{ result.status }})"
+      when: result.status == 204
+    - fail:
+        msg: "The project doesn’t exist (status code {{ result.status }})"
+      when: result.status == 404

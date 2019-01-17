@@ -1,0 +1,30 @@
+---
+- name: "Test on Drupal Host in HTTP"
+  hosts: all
+  gather_facts: true
+  tasks:
+    - set_fact:
+        ipaddress: "{{ ansible_all_ipv4_addresses[0] }}"
+    - name : "get the homepage"
+      uri:
+        url: "http://{{ ipaddress }}"
+        return_content: yes
+      register: output
+    - debug:
+        msg: "Drupal homepage found"
+      when: output.content is search('Powered by')
+      #failed_when: output.content is not search('Powered by Drupal')
+    - uri:
+        url: "http://{{ ipaddress }}/user/login"
+        return_content: yes
+        method: POST
+        body_format: form-urlencoded
+        body:
+          name: admin
+          password: admin
+          enter: Log in
+        status_code: 200
+      register: login
+    - debug:
+        msg: "Drupal admin login succesful"
+      when: output.content is search('Member for')

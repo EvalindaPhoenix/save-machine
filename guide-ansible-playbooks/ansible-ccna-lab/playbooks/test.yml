@@ -1,0 +1,5 @@
+---
+- hosts: blocks
+  gather_facts: False
+  roles:
+    - common

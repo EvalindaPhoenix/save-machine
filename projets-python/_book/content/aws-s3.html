@@ -1,0 +1,355 @@
+
+<!DOCTYPE HTML>
+<html lang="fr" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Projet 5. Projet AWS S3 et EC2 · projets-python</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="François-Emmanuel Goffinet, goffinet@goffinet.eu">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-atoc/atoc.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="null.html" />
+    
+    
+    <link rel="prev" href="github-api.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Tapez pour rechercher" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="parler-geek.html">
+            
+                <a href="parler-geek.html">
+            
+                    
+                    Projet 1. Parler Geek
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="vigenere.html">
+            
+                <a href="vigenere.html">
+            
+                    
+                    Projet 2. L'algorithme de Vigenere
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="argparse.html">
+            
+                <a href="argparse.html">
+            
+                    
+                    Projet 3. Arguments en ligne de commande
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="github-api.html">
+            
+                <a href="github-api.html">
+            
+                    
+                    Projet 4. Projet GitHub-API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6" data-path="aws-s3.html">
+            
+                <a href="aws-s3.html">
+            
+                    
+                    Projet 5. Projet AWS S3 et EC2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="null.html">
+            
+                <a href="null.html">
+            
+                    
+                    Projet 6. Bases de données
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="null.html">
+            
+                <a href="null.html">
+            
+                    
+                    Projet 7. Projet jekyll to gitbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Publié avec GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Projet 5. Projet AWS S3 et EC2</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="projet-aws-s3">Projet AWS S3</h1>
+<!-- toc -->
+<ul>
+<li><a href="#getting-started-with-the-aws-sdk-for-python-boto">Getting Started with the AWS SDK for Python (Boto)</a></li>
+<li><a href="#exercices-et-exemples">Exercices et exemples</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="getting-started-with-the-aws-sdk-for-python-boto">Getting Started with the AWS SDK for Python (Boto)</h2>
+<p><a href="https://aws.amazon.com/fr/developers/getting-started/python/" target="_blank">Getting Started with the AWS SDK for Python (Boto)</a></p>
+<h2 id="exercices-et-exemples">Exercices et exemples</h2>
+<p><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-examples.html" target="_blank">Amazon S3 Examples</a></p>
+<ul>
+<li><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-example-creating-buckets.html" target="_blank">Creating and Using Amazon S3 Buckets</a></li>
+<li><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-example-download-file.html" target="_blank">Downloading a File from an S3 Bucket</a></li>
+<li><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-example-configuring-buckets.html" target="_blank">Configuring Amazon S3 Buckets</a></li>
+<li><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-example-access-permissions.html" target="_blank">Managing Amazon S3 Bucket Access Permissions</a></li>
+<li><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-example-bucket-policies.html" target="_blank">Working with Amazon S3 Bucket Policies</a></li>
+<li><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-example-static-web-host.html" target="_blank">Using an Amazon S3 Bucket as a Static Web Host</a></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="github-api.html" class="navigation navigation-prev " aria-label="Previous page: Projet 4. Projet GitHub-API">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="null.html" class="navigation navigation-next " aria-label="Next page: Projet 6. Bases de données">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Projet 5. Projet AWS S3 et EC2","level":"1.6","depth":1,"next":{"title":"Projet 6. Bases de données","level":"1.7","depth":1,"path":"content/null.md","ref":"content/null.md","articles":[]},"previous":{"title":"Projet 4. Projet GitHub-API","level":"1.5","depth":1,"path":"content/github-api.md","ref":"content/github-api.md","articles":[]},"dir":"ltr"},"config":{"plugins":["atoc","-lunr","-search","search-plus","hints","livereload","katex","google-drive-video","image-captions","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"google-drive-video":{},"livereload":{},"atoc":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{},"image-captions":{"caption":"Figure _BOOK_IMAGE_NUMBER_ : _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"François-Emmanuel Goffinet, goffinet@goffinet.eu","pdf":{"pageBreaksBefore":"/","headerTemplate":"_TITLE_ - _SECTION_","paperSize":"a4","margin":{"right":56,"left":56,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":"_AUTHOR_ - _PAGENUM_","chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"index.html#fig1.1.1","level":"1.1","list_caption":"Figure: Projets Python","alt":"Projets Python","nro":1,"url":"cover_small.jpg","index":1,"caption_template":"Figure _BOOK_IMAGE_NUMBER_ : _CAPTION_","label":"Projets Python","attributes":{},"skip":false,"key":"1.1.1"},{"backlink":"content/vigenere.html#fig1.3.1","level":"1.3","list_caption":"Figure: Chiffré avec ROT13, le mot « HELLO » devient « URYYB » (et inversement).","alt":"Chiffré avec ROT13, le mot « HELLO » devient « URYYB » (et inversement).","nro":2,"url":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/ROT13.png/440px-ROT13.png","index":1,"caption_template":"Figure _BOOK_IMAGE_NUMBER_ : _CAPTION_","label":"Chiffré avec ROT13, le mot « HELLO » devient « URYYB » (et inversement).","attributes":{},"skip":false,"key":"1.3.1"}]},"title":"projets-python","language":"fr","gitbook":"*","description":"projets-python"},"file":{"path":"content/aws-s3.md","mtime":"2019-01-09T11:17:20.296Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-09T11:17:33.771Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-atoc/atoc.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

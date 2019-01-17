@@ -1,0 +1,40 @@
+---
+- name: Deploy S3 Static Website
+  hosts: localhost
+  vars:
+    BUCKET_NAME: "evalinda"
+    BUCKET_REGION: "eu-west-3"
+  tasks:
+    - name: Create a bucket and attach a policy
+      s3_bucket:
+        name: "{{ BUCKET_NAME }}"
+        region: "{{ BUCKET_REGION }}"
+        state: present
+        policy:
+          Version: "2012-10-17"
+          Statement:
+            - Sid: Allow Public Access to All Objects
+              Effect: Allow
+              Principal: "*"
+              Action: s3:GetObject
+              Resource: arn:aws:s3:::{{ BUCKET_NAME }}/*
+    - name: set website configuration index/error file
+      s3_website:
+        name: "{{ BUCKET_NAME }}"
+        state: present
+        error_key: error.html
+    - name: synchronize the files
+      s3_sync:
+        bucket: "{{ BUCKET_NAME }}"
+        file_root: website/
+        permission: public-read
+        delete: yes
+    - name: 5 sec. waiting
+      pause:
+        seconds: 5
+    - name: test the website
+      uri:
+        url: "http://{{ BUCKET_NAME }}.s3-website.{{ BUCKET_REGION }}.amazonaws.com/"
+        return_content: yes
+      register: thepage
+      failed_when: "'Welcome to my website' not in thepage.content"

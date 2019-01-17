@@ -1,0 +1,56 @@
+---
+- name: "get gns3 projects"
+  uri:
+    url: http://{{ gns3_server }}/v2/projects
+    method: GET
+  register: projects
+- name: "set the project id"
+  set_fact:
+    project_id: "{{ item.project_id }}"
+  when: item.name == project_name
+  loop: "{{ projects.json }}"
+- name: "open the project"
+  uri:
+    url: http://{{ gns3_server }}/v2/projects/{{ project_id }}/open
+    status_code: 201,404
+    method: POST
+  register: result
+- debug:
+    msg: "The project has been opened (status code {{ result.status }})"
+  when: result.status == 201
+- fail:
+    msg: "The project doesn’t exist (status code {{ result.status }})"
+  when: result.status == 404
+- name: "get project nodes"
+  uri:
+    url: http://{{ gns3_server }}/v2/projects/{{ project_id }}/nodes
+    method: GET
+  register: nodes
+- name: "set the node id"
+  set_fact:
+    node_id: "{{ item.node_id }}"
+  when: item.name == node
+  loop: "{{ nodes.json }}"
+- name: "cpu load limit check"
+  uri:
+    url: http://{{ gns3_server }}/v2/computes
+    method: GET
+    return_content: yes
+  register: compute
+  until: compute.json[0].cpu_usage_percent <= limit
+  retries: 18
+  delay: 5
+- name: "start the node"
+  uri:
+    url: http://{{ gns3_server }}/v2/projects/{{ project_id }}/nodes/{{ node_id }}/start
+    status_code: 200,400,404
+    method: POST
+- debug:
+    msg: "Instance started (status code {{ result.status }})"
+  when: result.status == 200
+- fail:
+    msg: "Invalid request (status code {{ result.status }})"
+  when: result.status == 400
+- fail:
+    msg: "Instance doesn’t exist (status code {{ result.status }})"
+  when: result.status == 404

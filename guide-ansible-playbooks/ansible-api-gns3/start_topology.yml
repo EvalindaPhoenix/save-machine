@@ -1,0 +1,30 @@
+---
+- name: "Start GNS3 topology"
+  hosts: localhost
+  gather_facts: False
+  vars:
+      project_name: 'ansible-ccna-model'
+      limit: 80
+      gns3_server: '172.16.253.1:3080'
+  tasks:
+    - include_tasks: start_node.yml
+      loop:
+        - controller
+        - Provider
+        - R1
+        - R2
+        - R3
+        - DS1
+        - DS2
+        - AS1
+        - AS2
+        - pc-1
+        - pc-2
+        - pc-3
+        - pc-4
+        - pc-5
+        - pc-6
+        - pc-7
+        - pc-8
+      loop_control:
+        loop_var: node

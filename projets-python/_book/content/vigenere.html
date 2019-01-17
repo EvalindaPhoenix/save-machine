@@ -1,0 +1,496 @@
+
+<!DOCTYPE HTML>
+<html lang="fr" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Projet 2. L'algorithme de Vigenere · projets-python</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="François-Emmanuel Goffinet, goffinet@goffinet.eu">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-atoc/atoc.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="argparse.html" />
+    
+    
+    <link rel="prev" href="parler-geek.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Tapez pour rechercher" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="parler-geek.html">
+            
+                <a href="parler-geek.html">
+            
+                    
+                    Projet 1. Parler Geek
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="vigenere.html">
+            
+                <a href="vigenere.html">
+            
+                    
+                    Projet 2. L'algorithme de Vigenere
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="argparse.html">
+            
+                <a href="argparse.html">
+            
+                    
+                    Projet 3. Arguments en ligne de commande
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="github-api.html">
+            
+                <a href="github-api.html">
+            
+                    
+                    Projet 4. Projet GitHub-API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="aws-s3.html">
+            
+                <a href="aws-s3.html">
+            
+                    
+                    Projet 5. Projet AWS S3 et EC2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="null.html">
+            
+                <a href="null.html">
+            
+                    
+                    Projet 6. Bases de données
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="null.html">
+            
+                <a href="null.html">
+            
+                    
+                    Projet 7. Projet jekyll to gitbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Publié avec GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Projet 2. L'algorithme de Vigenere</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="projet-vigenere">Projet Vigenere</h1>
+<!-- toc -->
+<ul>
+<li><a href="#objectif">Objectif</a></li>
+<li><a href="#principe">Principe</a><ul>
+<li><a href="#rot13">ROT13</a></li>
+</ul>
+</li>
+<li><a href="#algortithme-de-vigen&#xE8;re">Algortithme de Vigen&#xE8;re</a></li>
+<li><a href="#r&#xE9;sultat-attendu">R&#xE9;sultat attendu</a></li>
+<li><a href="#en-pratique">En pratique</a></li>
+<li><a href="#r&#xE9;f&#xE9;rences">R&#xE9;f&#xE9;rences</a></li>
+</ul>
+<!-- tocstop -->
+<h2 id="objectif">Objectif</h2>
+<p>Chiffrer gr&#xE2;ce &#xE0; l&apos;algorithme de Vigen&#xE8;re un texte &#xE9;crit dans un fichier &quot;<code>messageclair.txt</code>&quot; et &#xE9;crire ce r&#xE9;sultat dans un autre fichier texte &quot;<code>messagechiffre.txt</code>&quot;.</p>
+<h2 id="principe">Principe</h2>
+<h3 id="rot13">ROT13</h3>
+<p>D&#xE9;calage de chaque lettre de 13 vers la droite dans l&apos;alphabet. Si les lettres de l&apos;alphabet sont num&#xE9;rot&#xE9;es de 0 &#xE0; 25, il s&apos;agirait d&apos;ajouter 13 &#xE0; leur rang et de s&apos;assurer qu&apos;il reste compris entre 0 et 25 avec le modulo 26.</p>
+<figure id="fig1.3.1"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/ROT13.png/440px-ROT13.png" alt="Chiffr&#xE9; avec ROT13, le mot &#xAB; HELLO &#xBB; devient &#xAB; URYYB &#xBB; (et inversement)."><figcaption>Figure 2 : Chiffr&#xE9; avec ROT13, le mot &#xAB; HELLO &#xBB; devient &#xAB; URYYB &#xBB; (et inversement).</figcaption></figure>
+<p>Peut-&#xEA;tre plus simplement en python 2 :</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> string
+rot13 = string.maketrans(
+    <span class="hljs-string">&quot;ABCDEFGHIJKLMabcdefghijklmNOPQRSTUVWXYZnopqrstuvwxyz&quot;</span>,
+    <span class="hljs-string">&quot;NOPQRSTUVWXYZnopqrstuvwxyzABCDEFGHIJKLMabcdefghijklm&quot;</span>)
+string.translate(<span class="hljs-string">&quot;Hello World!&quot;</span>, rot13)
+<span class="hljs-comment"># &apos;Uryyb Jbeyq!&apos;</span>
+</code></pre>
+<p>Et en python 3 :</p>
+<pre><code class="lang-python">rot13 = str.maketrans(
+    <span class="hljs-string">&quot;ABCDEFGHIJKLMabcdefghijklmNOPQRSTUVWXYZnopqrstuvwxyz&quot;</span>,
+    <span class="hljs-string">&quot;NOPQRSTUVWXYZnopqrstuvwxyzABCDEFGHIJKLMabcdefghijklm&quot;</span>)
+<span class="hljs-string">&quot;Hello World!&quot;</span>.translate(rot13)
+<span class="hljs-comment">#&apos;Uryyb Jbeyq!&apos;</span>
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> string
+</code></pre>
+<p><a href="https://stackoverflow.com/questions/3269686/short-rot13-function-python" target="_blank">Source</a></p>
+<h2 id="algortithme-de-vigen&#xE8;re">Algortithme de Vigen&#xE8;re</h2>
+<p>Pour casser le code Rot13 il suffit de tester les 26 d&#xE9;calages possibles. <a href="https://fr.wikipedia.org/wiki/Cryptanalyse_du_chiffre_de_Vigen%C3%A8re" target="_blank">L&apos;algortithme de Vigen&#xE8;re</a> consiste &#xE0; introduire une cl&#xE9; rendant le d&#xE9;calage variable selon la position du caract&#xE8;re dans le message.</p>
+<table>
+<thead>
+<tr>
+<th>Message clair</th>
+<th>c</th>
+<th>i</th>
+<th>s</th>
+<th>c</th>
+<th>o</th>
+<th>s</th>
+<th>y</th>
+<th>s</th>
+<th>t</th>
+<th>e</th>
+<th>m</th>
+<th>s</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n# du message clair</td>
+<td>2</td>
+<td>8</td>
+<td>18</td>
+<td>2</td>
+<td>14</td>
+<td>18</td>
+<td>24</td>
+<td>18</td>
+<td>19</td>
+<td>4</td>
+<td>12</td>
+<td>18</td>
+</tr>
+<tr>
+<td>Cl&#xE9; r&#xE9;p&#xE9;t&#xE9;e</td>
+<td><strong>a</strong></td>
+<td><strong>b</strong></td>
+<td><strong>c</strong></td>
+<td><strong>d</strong></td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+</tr>
+<tr>
+<td>n# de cl&#xE9; (d&#xE9;calage)</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>R&#xE9;sultat n# + n#</td>
+<td>2</td>
+<td>9</td>
+<td>20</td>
+<td>5</td>
+<td>14</td>
+<td>19</td>
+<td>0</td>
+<td>21</td>
+<td>19</td>
+<td>5</td>
+<td>14</td>
+<td>21</td>
+</tr>
+<tr>
+<td>Message chiffr&#xE9;</td>
+<td>c</td>
+<td>j</td>
+<td>u</td>
+<td>f</td>
+<td>o</td>
+<td>t</td>
+<td>a</td>
+<td>v</td>
+<td>t</td>
+<td>f</td>
+<td>o</td>
+<td>v</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;ciscosystems&quot;</span> &gt; messageclair.txt
+</code></pre>
+<h2 id="r&#xE9;sultat-attendu">R&#xE9;sultat attendu</h2>
+<pre><code class="lang-bash"><span class="hljs-keyword">if</span> [ <span class="hljs-_">-f</span> messagechiffre.txt ] ; <span class="hljs-keyword">then</span> rm messagechiffre.txt ; <span class="hljs-keyword">fi</span> ; ./vigenere.py &amp;&amp; cat messagechiffre.txt ; <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot; &quot;</span>
+Entrez la cle de chiffrement
+abcd
+cjufotavtfov
+</code></pre>
+<h2 id="en-pratique">En pratique</h2>
+<ul>
+<li>Op&#xE9;rations arithm&#xE9;tiques</li>
+<li>manipulation de fichier</li>
+<li>cr&#xE9;er automatiquement une plage de nombres, de lettres</li>
+<li>commentaires et documentation</li>
+<li>Mise en fonction</li>
+<li>Fonction native <a href="https://docs.python.org/fr/3/library/functions.html#ord" target="_blank"><code>ord()</code></a> et <a href="https://docs.python.org/fr/3/library/functions.html#chr" target="_blank"><code>chr()</code></a></li>
+<li>Boucle <code>for</code></li>
+<li>Fonction <code>range()</code></li>
+</ul>
+<h2 id="r&#xE9;f&#xE9;rences">R&#xE9;f&#xE9;rences</h2>
+<ul>
+<li>Source de d&#xE9;part : <a href="http://python3.moneformation.fr/" target="_blank">Apprendre Python 3 - Franck Ebel</a>, pp.</li>
+<li>Voir aussi <a href="http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx/notebooks/expose_vigenere.html" target="_blank">1A.algo - Casser le code de Vigen&#xE8;re</a></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="parler-geek.html" class="navigation navigation-prev " aria-label="Previous page: Projet 1. Parler Geek">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="argparse.html" class="navigation navigation-next " aria-label="Next page: Projet 3. Arguments en ligne de commande">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Projet 2. L'algorithme de Vigenere","level":"1.3","depth":1,"next":{"title":"Projet 3. Arguments en ligne de commande","level":"1.4","depth":1,"path":"content/argparse.md","ref":"content/argparse.md","articles":[]},"previous":{"title":"Projet 1. Parler Geek","level":"1.2","depth":1,"path":"content/parler-geek.md","ref":"content/parler-geek.md","articles":[]},"dir":"ltr"},"config":{"plugins":["atoc","-lunr","-search","search-plus","hints","livereload","katex","google-drive-video","image-captions","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"google-drive-video":{},"livereload":{},"atoc":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{},"image-captions":{"caption":"Figure _BOOK_IMAGE_NUMBER_ : _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"François-Emmanuel Goffinet, goffinet@goffinet.eu","pdf":{"pageBreaksBefore":"/","headerTemplate":"_TITLE_ - _SECTION_","paperSize":"a4","margin":{"right":56,"left":56,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":"_AUTHOR_ - _PAGENUM_","chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"index.html#fig1.1.1","level":"1.1","list_caption":"Figure: Projets Python","alt":"Projets Python","nro":1,"url":"cover_small.jpg","index":1,"caption_template":"Figure _BOOK_IMAGE_NUMBER_ : _CAPTION_","label":"Projets Python","attributes":{},"skip":false,"key":"1.1.1"},{"backlink":"content/vigenere.html#fig1.3.1","level":"1.3","list_caption":"Figure: Chiffré avec ROT13, le mot « HELLO » devient « URYYB » (et inversement).","alt":"Chiffré avec ROT13, le mot « HELLO » devient « URYYB » (et inversement).","nro":2,"url":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/ROT13.png/440px-ROT13.png","index":1,"caption_template":"Figure _BOOK_IMAGE_NUMBER_ : _CAPTION_","label":"Chiffré avec ROT13, le mot « HELLO » devient « URYYB » (et inversement).","attributes":{},"skip":false,"key":"1.3.1"}]},"title":"projets-python","language":"fr","gitbook":"*","description":"projets-python"},"file":{"path":"content/vigenere.md","mtime":"2019-01-09T11:17:20.296Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-09T11:17:33.771Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-atoc/atoc.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

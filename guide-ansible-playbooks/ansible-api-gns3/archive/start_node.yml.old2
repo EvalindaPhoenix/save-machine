@@ -1,0 +1,47 @@
+---
+- name: "Start topology"
+  hosts: localhost
+  gather_facts: False
+  vars:
+      project_name: 'ansible-ccna-model'
+      limit: 50
+  tasks:
+  - name: "cpu load mimit check"
+    uri:
+      url: http://172.16.253.1:3080/v2/computes
+      method: GET
+      return_content: yes
+    register: compute
+    until: compute.json[0].cpu_usage_percent <= limit
+    retries: 20
+    delay: 5
+  - name: "get gns3 projects"
+    uri:
+      url: http://172.16.253.1:3080/v2/projects
+      method: GET
+    register: projects
+  - name: "set the project id"
+    set_fact:
+      project_id: "{{ item.project_id }}"
+    when: item.name == project_name
+    loop: "{{ projects.json }}"
+  - name: "open the project"
+    uri:
+      url: http://172.16.253.1:3080/v2/projects/{{ project_id }}/open
+      status_code: 201
+      method: POST
+  - name: "get project nodes"
+    uri:
+      url: http://172.16.253.1:3080/v2/projects/{{ project_id }}/nodes
+      method: GET
+    register: nodes
+  - name: "set the node id"
+    set_fact:
+      node_id: "{{ item.node_id }}"
+    when: item.name == node
+    loop: "{{ nodes.json }}"
+  - name: "start the node"
+    uri:
+      url: http://172.16.253.1:3080/v2/projects/{{ project_id }}/nodes/{{ node_id }}/start
+      status_code: 200, 204
+      method: POST

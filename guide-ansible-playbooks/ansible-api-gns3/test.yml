@@ -1,0 +1,14 @@
+---
+- name: "Duplicate GNS3 topology"
+  hosts: localhost
+  gather_facts: True
+  vars:
+      project_name: 'ansible-ccna-model'
+      new_project_name:
+        name: "ansible-ccna-model-{{ ansible_date_time.date }}"
+      gns3_server: '172.16.253.1:3080'
+  tasks:
+    - set_fact:
+        device_uuid: "{{ ansible_date_time.iso8601 | to_uuid }}"
+    - debug:
+        msg: "{{ device_uuid }}"

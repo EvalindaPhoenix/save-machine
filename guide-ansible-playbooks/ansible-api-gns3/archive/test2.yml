@@ -1,0 +1,51 @@
+---
+- name: "test GNS3 api"
+  hosts: localhost
+  gather_facts: False
+  vars:
+      project_name: 'ansible-ccna-model'
+      node_list: []
+  tasks:
+    - name: "get gns3 projects"
+      uri:
+        url: http://172.16.253.1:3080/v2/projects
+        method: GET
+      register: projects
+    - name: "set the project id" 
+      set_fact:
+        project_id: "{{ item.project_id }}"
+      when: item.name == project_name
+      loop: "{{ projects.json }}"
+    - name: "print the project id"
+      debug:
+        msg: "Project Id: {{ project_id }}"
+    - name: "open the project"
+      uri:
+        url: http://172.16.253.1:3080/v2/projects/{{ project_id }}/open
+        status_code: 201
+        method: POST
+    - name: "get project nodes"
+      uri:
+        url: http://172.16.253.1:3080/v2/projects/{{ project_id }}/nodes
+        method: GET
+      register: nodes
+    - name: "set node list"
+      set_fact:
+        node_list: "{{ node_list }} + [ '{{ item.name }}' ]"
+      loop: "{{ nodes.json }}"
+    - name: "print node list"
+      debug:
+        msg: "{{ node_list }}"
+    - name: "set the controller id"
+      set_fact:
+        node_id: "{{ item.node_id }}"
+      when: item.name == "controller"
+      loop: "{{ nodes.json }}"
+    - name: "print controller id"
+      debug:
+        var: node_id
+    - name: "start the controller"
+      uri:
+        url: http://172.16.253.1:3080/v2/projects/{{ project_id }}/nodes/{{ node_id }}/start
+        status_code: 200, 204
+        method: POST

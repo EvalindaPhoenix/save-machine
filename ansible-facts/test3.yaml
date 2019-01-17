@@ -1,0 +1,13 @@
+---
+- name: "print ipv4 public address"
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - uri:
+        url: https://ipinfo.io/ip
+        return_content: yes
+      register: output
+    - set_fact:
+            zozo: "{{ output.content | replace('\n', '') }}"
+    - debug:
+        msg: "{{zozo}}"

@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: telnet to cisco device
+      telnet:
+        user:
+        password:
+        hostname: 172.16.253.1
+        port: 5044
+        prompts:
+          - "[>|#]"
+        command:
+          - enable
+          - configure terminal
+          - hostname zozo

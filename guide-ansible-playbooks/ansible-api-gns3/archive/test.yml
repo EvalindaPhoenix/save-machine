@@ -1,0 +1,13 @@
+---
+- name: "test GNS3 api"
+  hosts: localhost
+  tasks:
+    - name: "get gns3 version"
+      uri:
+        url: http://172.16.253.1:3080/v2/version
+        method: GET
+        return_content: yes
+      register: output
+    - name: print
+      debug:
+        msg: "{{ output.json.version }}"

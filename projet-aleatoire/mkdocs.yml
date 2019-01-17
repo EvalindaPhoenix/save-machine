@@ -1,0 +1,14 @@
+site_name: <3 <3 <3
+theme:
+  name: material
+  palette:
+    primary: 'pink'
+    accent: 'green'
+  logo:
+    icon: thumb_up
+  language: 'fr'
+nav:
+  - Accueil: index.md
+  - Installation: installation.md
+theme:
+--name:material

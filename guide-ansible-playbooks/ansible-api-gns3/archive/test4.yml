@@ -1,0 +1,15 @@
+---
+ - name: "get gns3 cpu load"
+   uri:
+     url: http://172.16.253.1:3080/v2/computes
+     method: GET
+     return_content: yes
+     timeout: 60
+   register: compute
+ - name: "get cpu load"
+   set_fact:
+     cpu_load: "{{ item.cpu_usage_percent }}"
+   loop: "{{ compute.json }}"
+   until: cpu_load <= 40
+   retries: 12
+   delay: 10

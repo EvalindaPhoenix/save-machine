@@ -1,0 +1,17 @@
+---
+- name: "Start topology"
+  hosts: localhost
+  gather_facts: False
+  vars:
+      project_name: 'ansible-ccna-model'
+      limit: 50
+  tasks:
+  - include_tasks: start_node.yml node=controller
+  - include_tasks: start_node.yml node=Provider
+  - include_tasks: start_node.yml node=R1
+  - include_tasks: start_node.yml node=R2
+  - include_tasks: start_node.yml node=R3
+  - include_tasks: start_node.yml node=DS1
+  - include_tasks: start_node.yml node=DS2
+  - include_tasks: start_node.yml node=AS1
+  - include_tasks: start_node.yml node=AS2

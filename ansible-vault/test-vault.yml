@@ -1,0 +1,10 @@
+---
+- name: "demo ansible-vault"
+  hosts: localhost
+  vars_files:
+    - secret.yml
+  gather_facts: False
+  tasks:
+    - name: "affiche le secret"
+      debug:
+        msg: "{{ secret }}"

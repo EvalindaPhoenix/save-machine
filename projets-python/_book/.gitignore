@@ -1,0 +1,7 @@
+node_modules
+_book
+__pycache__
+.cache
+.bash_history
+.python_history
+*.pdf
